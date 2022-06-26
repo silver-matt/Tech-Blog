@@ -110,4 +110,32 @@ router.post('/login', async(req, res) => {
   }
 });
 
+// delete user 
+router.delete('/:id', async(req, res) => {
+  try {
+    const deleteUser = await User.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!deleteUser) {
+      res.status(404).json({ message: 'No User found' });
+      return;
+    }
+    res.json(deleteUser);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
+
 module.exports = router;
