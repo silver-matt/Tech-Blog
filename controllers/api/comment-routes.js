@@ -60,4 +60,28 @@ router.post("/", async(req, res) => {
   }
 });
 
+// function to update comment
+router.put("/", (req, res) => {
+  res.send(`update comment`);
+});
+
+//function to delete comments
+router.delete("/:id", async(req, res) => {
+  try {
+    const deleteComment = await Post.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!deleteComment) {
+      res.status(404).json({ message: "No comment found" });
+      return;
+    }
+    res.json(deleteComment);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
