@@ -8,10 +8,10 @@ const postRoutes = require('./api/post-routes');
 const userRoutes = require('./api/user-routes')
 
 // use routes section
-router.use('/api', apiRoutes);
-router.use('/', homeRoutes);
-router.use('/api/comments', commentRoutes);
-router.use('/api/posts', postRoutes);
-router.use('/api/users', userRoutes);
+router.use('./api', apiRoutes);
+router.use('/controllers/home-routes.js', homeRoutes);
+router.use('./api/comment-routes.js', commentRoutes);
+router.use('./api/post-routes.js', postRoutes);
+router.use('./api/user-routes.js', userRoutes);
 
 module.exports = router;
